@@ -25,7 +25,7 @@ makeCacheMatrix <- function(x = matrix()) {
     }
     
     ## calculate the inverse if not existing yet and return inverse matrix in any case
-    cacheSolve <- function() {
+    getInverse <- function() {
         if (is.null(inv)) {
             inv <<- solve(x)
         }
@@ -33,5 +33,19 @@ makeCacheMatrix <- function(x = matrix()) {
     }
     
     ## return the list of functions available for this object
-    list(get = get, set = set, cacheSolve = cacheSolve)
+    list(get = get, set = set, getInverse = getInverse)
+}
+
+## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(x, ...) {
+    ## functionality for getting the inverse is all inside the makeCacheMatrix class
+    ##
+    ## Advantage:
+    ## makeCacheMatrix itself will ensure you always get the correct inverse matrix back
+    ##
+    ## e.g. if you would calculate the inverse outside of the class, you could possible get
+    ## a wrong inverse returned
+    
+    makeCacheMatrix(x)$getInverse()
+    
 }
