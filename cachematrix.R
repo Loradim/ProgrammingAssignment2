@@ -1,15 +1,37 @@
-## Put comments here that give an overall description of what your
-## functions do
+##
+## Coursera Data Science - Course 2 - R Programming
+## Programming Assignment 2
+##
+## Create a function that will calculate the inverse of a matrix if needed
+## and caches the result as long as it is valid
+##
 
-## Write a short comment describing this function
-
+## new "class" for storing a matrix and it's inverse
 makeCacheMatrix <- function(x = matrix()) {
-
-}
-
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+    
+    ## initialize the inverse to "not present"
+    inv <- NULL
+    
+    ## set a new matrix and declare and remove an existing inverse
+    ## might be improved by checking if the new and old matrix are identical
+    set <- function(y) {
+        x <<- y
+        inv <<- NULL
+    }
+    
+    ## return the stored matrix
+    get <- function() {
+        x
+    }
+    
+    ## calculate the inverse if not existing yet and return inverse matrix in any case
+    cacheSolve <- function() {
+        if (is.null(inv)) {
+            inv <<- solve(x)
+        }
+        inv
+    }
+    
+    ## return the list of functions available for this object
+    list(get = get, set = set, cacheSolve = cacheSolve)
 }
